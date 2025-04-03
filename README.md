@@ -5,7 +5,7 @@ Using sentiment analysis and financial keyword tracking, this tool visualizes ho
 
 It features:
 
-Tweet scraping (with API calls)
-Sentiment & keyword analysis using NLP
-Market data pulled from Yahoo Finance / other API's
-Visualizations needed for assignment including: Sankey diagrams, sentiment overlays, and keyword breakdowns
+- Tweet scraping (with API calls)
+- Sentiment & keyword analysis using NLP
+- Market data pulled from Yahoo Finance / other API's
+- Visualizations needed for assignment including: Sankey diagrams, sentiment overlays, and keyword breakdowns
