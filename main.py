@@ -1,5 +1,3 @@
-# main.py
-
 from analyzer import TweetAnalyzer
 
 def main():
