@@ -41,6 +41,7 @@ def main():
 
     analyzer.wordcount_sankey(k=5)
     analyzer.subplot_visualization()
-    analyzer.overlay_visualization(macro_results)
+    analyzer.plot_top_words_subplots(top_k=3)
+
 if __name__ == "__main__":
     main()

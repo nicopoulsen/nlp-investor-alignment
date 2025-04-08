@@ -6,6 +6,7 @@ from collections import defaultdict, Counter
 import nltk
 import matplotlib.pyplot as plt
 import seaborn as sns
+import math
 import plotly.graph_objects as go
 
 nltk.download('stopwords')
@@ -163,7 +164,6 @@ class TextAnalysisFramework:
             link=dict(source=sources, target=targets, value=values)
         ))
         fig.update_layout(title_text="Text to Word Sankey Diagram", font_size=20)
-        fig.write_image("wordcount_sankey.pdf")  
         fig.show()
 
     def subplot_visualization(self):
@@ -181,5 +181,43 @@ class TextAnalysisFramework:
         plt.tight_layout()
         plt.show()
 
+    def plot_top_words_subplots(self, top_k=3):
+
+        top_words_data = self.get_top_words_per_outlet(top_k)
+        labels = list(top_words_data.keys())
+        word_sets = list(top_words_data.values())
+
+        num_outlets = len(labels)
+        cols = 3
+        rows = math.ceil(num_outlets / cols)
+
+        fig, axes = plt.subplots(rows, cols, figsize=(16, 5 * rows))
+        axes = axes.flatten()
+
+        for i, (label, top_words) in enumerate(zip(labels, word_sets)):
+            words, counts = zip(*top_words.items())
+            ax = axes[i]
+            bars = ax.bar(words, counts, color='skyblue')
+
+            ax.set_title(label, fontsize=12, pad=10)
+            ax.set_ylabel("Count")
+            ax.set_xlabel("Top Words")
+            ax.tick_params(axis='x', labelrotation=0)
+
+            for bar in bars:
+                height = bar.get_height()
+                ax.annotate(f'{int(height)}',
+                            xy=(bar.get_x() + bar.get_width() / 2, height),
+                            xytext=(0, 3),
+                            textcoords="offset points",
+                            ha='center', va='bottom', fontsize=9)
+
+        for j in range(i + 1, len(axes)):
+            axes[j].axis('off')
+
+        fig.suptitle("Top 3 Words per Outlet", fontsize=20)
+        plt.subplots_adjust(hspace=1.2, wspace=1)
+        plt.savefig("top_words_subplots_final.png")
+        plt.show()
 
 
